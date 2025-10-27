@@ -6,95 +6,141 @@
   <title>Reporte de Ventas</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   <style>
-    /* Estilos completos originales */
-  </style>
+    *{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);min-height:100vh;padding:20px;color:#e2e8f0;}.container{max-width:1400px;margin:0 auto;}.header{margin-bottom:30px;background:rgba(51,65,85,0.5);backdrop-filter:blur(10px);border:1px solid #475569;border-radius:12px;padding:20px;}.header-content{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;margin-bottom:15px;}.header-title{text-align:center;}.header-title h1{font-size:2.5em;margin-bottom:10px;color:#fff;}.header-title p{color:#94a3b8;font-size:1.1em;}.header-sucursales{display:flex;gap:10px;}.sucursales-section{padding:12px 16px;background:rgba(30,41,59,0.5);border-radius:8px;border:1px solid #475569;cursor:pointer;transition:all .3s;min-width:150px;text-align:center;}.sucursales-section:hover{border-color:#64748b;}.sucursales-section h3{font-size:.85em;color:#94a3b8;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px;}.sucursales-count{font-size:1.8em;font-weight:bold;margin-bottom:3px;}.sucursales-section.encontradas h3,.sucursales-section.encontradas .sucursales-count{color:#34d399;}.sucursales-section.faltantes h3,.sucursales-section.faltantes .sucursales-count{color:#ff6b6b;}.sucursales-section p{font-size:.75em;color:#cbd5e1;}.btn-sheets{display:inline-block;margin-bottom:20px;padding:12px 24px;background:linear-gradient(135deg,#34d399 0%,#10b981 100%);color:white;border:none;border-radius:8px;font-size:1em;font-weight:600;cursor:pointer;box-shadow:0 5px 15px rgba(52,211,153,.4);transition:.3s;}.btn-sheets:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(52,211,153,.6);}.loading{text-align:center;padding:40px;color:#60a5fa;font-weight:600;font-size:1.2em;}.error{background:rgba(220,38,38,.2);border:1px solid #dc2626;color:#fca5a5;padding:15px;border-radius:8px;margin-bottom:20px;}.sucursales-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:999;display:none;}.sucursales-overlay.active{display:block;}.sucursales-dropdown{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(51,65,85,.95);border:1px solid #475569;border-radius:12px;padding:25px;z-index:1000;display:none;max-width:600px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.5);}.sucursales-dropdown.active{display:block;}.sucursales-dropdown h2{color:#e2e8f0;margin-bottom:15px;font-size:1.3em;}.close-dropdown{position:absolute;top:15px;right:15px;background:none;border:none;color:#94a3b8;font-size:1.5em;cursor:pointer;}.close-dropdown:hover{color:#e2e8f0;}.sucursal-item{padding:6px;margin:3px 0;border-radius:4px;display:flex;align-items:center;gap:8px;}.sucursal-item.encontrada{background:rgba(52,211,153,.2);color:#86efac;}.sucursal-item.faltante{background:rgba(239,68,68,.2);color:#fca5a5;}.status-icon{font-weight:bold;}.filter-section{background:rgba(51,65,85,0.5);border:1px solid #475569;border-radius:12px;padding:20px;margin-bottom:30px;}.filter-header{display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;background:rgba(30,41,59,0.5);border-radius:8px;margin-bottom:10px;}.filter-header:hover{background:rgba(30,41,59,0.8);}.filter-title{font-weight:600;color:#cbd5e1;flex:1;}.toggle-icon{width:20px;height:20px;text-align:center;color:#60a5fa;font-weight:bold;transition:transform .3s;}.toggle-icon.collapsed{transform:rotate(-90deg);}.filter-content{overflow:hidden;max-height:500px;transition:max-height .3s ease;}.filter-content.collapsed{max-height:0;}.filter-buttons{display:flex;flex-wrap:wrap;gap:10px;}.filter-btn{padding:10px 18px;border:1px solid #475569;border-radius:8px;background:#334155;color:#cbd5e1;cursor:pointer;transition:.3s;font-weight:500;font-size:.9em;}.filter-btn:hover{background:#475569;}.filter-btn.active{background:linear-gradient(135deg,#3b82f6 0%,#2563eb 100%);color:white;box-shadow:0 5px 15px rgba(59,130,246,.4);}.range-input{flex:1;padding:8px;background:#334155;border:1px solid #475569;border-radius:6px;color:#cbd5e1;font-size:.9em;}.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-bottom:30px;}.kpi-card{background:rgba(51,65,85,0.5);border:1px solid #475569;border-radius:12px;padding:25px;text-align:center;}.kpi-value{font-size:2.5em;font-weight:bold;margin-bottom:5px;color:#60a5fa;}.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:20px;margin-bottom:30px;}.chart-card{background:rgba(51,65,85,0.5);border:1px solid #475569;border-radius:12px;padding:25px;}.table-card{background:rgba(51,65,85,0.5);border:1px solid #475569;border-radius:12px;padding:25px;overflow-x:auto;}th{background:rgba(30,41,59,.8);padding:12px;text-align:left;color:#93c5fd;font-weight:600;border-bottom:2px solid #475569;cursor:pointer;user-select:none;transition:.2s;}th:hover{background:rgba(30,41,59,1);color:#60a5fa;}th::after{content:'';margin-left:5px;font-size:.8em;}th.asc::after{content:'▲'}th.desc::after{content:'▼'}td{padding:12px;border-bottom:1px solid #334155;color:#cbd5e1;}tr:hover{background:rgba(59,130,246,.1);}.sucursal-name{color:#60a5fa;font-weight:600;}</style>
 </head>
 <body>
 <div class="container">
-  <!-- Estructura completa del dashboard -->
+  <div class="header">
+    <div class="header-content">
+      <div class="header-title">
+        <h1>📊 Reporte de Ventas</h1>
+        <p>Dashboard de ventas por sucursal</p>
+      </div>
+      <div class="header-sucursales">
+        <div class="sucursales-section encontradas" onclick="abrirDropdown('encontradas')">
+          <h3>✅ Encontradas</h3>
+          <div class="sucursales-count" id="countEncontradas">0</div>
+          <p>Click para ver</p>
+        </div>
+        <div class="sucursales-section faltantes" onclick="abrirDropdown('faltantes')">
+          <h3>❌ Faltantes</h3>
+          <div class="sucursales-count" id="countFaltantes">0</div>
+          <p>Click para ver</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <button class="btn-sheets" onclick="irAlSheet()">📋 Ir a Google Sheets</button>
+    </div>
+  </div>
+
+  <div class="sucursales-overlay" id="overlay" onclick="cerrarDropdown()"></div>
+  <div class="sucursales-dropdown" id="dropdownEncontradas">
+    <button class="close-dropdown" onclick="cerrarDropdown()">✕</button>
+    <h2>✅ Sucursales Encontradas</h2>
+    <div id="sucursalesEncontradas"></div>
+  </div>
+  <div class="sucursales-dropdown" id="dropdownFaltantes">
+    <button class="close-dropdown" onclick="cerrarDropdown()">✕</button>
+    <h2>❌ Sucursales Faltantes</h2>
+    <div id="sucursalesFaltantes"></div>
+  </div>
+
+  <div id="errorMsg" class="error" style="display:none;"></div>
+  <div id="loading" class="loading">Cargando datos...</div>
+
+  <div id="dashboard" style="display:none;">
+    <div class="filter-section">
+      <div class="filter-header" onclick="toggleFiltro('sucursal')">
+        <span class="toggle-icon" id="toggle-sucursal">▼</span>
+        <span class="filter-title">Sucursal</span>
+      </div>
+      <div class="filter-content" id="content-sucursal">
+        <div class="filter-buttons" id="filtros-sucursal"></div>
+      </div>
+
+      <div class="filter-header" onclick="toggleFiltro('producto')">
+        <span class="toggle-icon" id="toggle-producto">▼</span>
+        <span class="filter-title">Producto</span>
+      </div>
+      <div class="filter-content collapsed" id="content-producto">
+        <input type="text" class="range-input" id="buscaProducto" placeholder="Buscar producto..." onkeyup="actualizarDashboard()">
+      </div>
+
+      <div class="filter-header" onclick="toggleFiltro('precio')">
+        <span class="toggle-icon" id="toggle-precio">▼</span>
+        <span class="filter-title">Precio (Mayor a / Menor a)</span>
+      </div>
+      <div class="filter-content collapsed" id="content-precio">
+        <div style="display:flex;gap:10px;">
+          <input type="number" class="range-input" id="precioMayorA" placeholder="Mayor a" onchange="actualizarDashboard()">
+          <input type="number" class="range-input" id="precioMenorA" placeholder="Menor a" onchange="actualizarDashboard()">
+        </div>
+      </div>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+    <div class="charts-grid">
+      <div class="chart-card"><h3>Ventas por Sucursal</h3><div class="chart-container"><canvas id="chartVentas"></canvas></div></div>
+      <div class="chart-card"><h3>Utilidad por Sucursal</h3><div class="chart-container"><canvas id="chartUtilidad"></canvas></div></div>
+    </div>
+    <div class="table-card">
+      <h3>Detalle de Ventas (Click en columnas para ordenar)</h3>
+      <table><thead><tr><th onclick="ordenarTabla('sucursal')">Sucursal</th><th onclick="ordenarTabla('producto')">Producto</th><th onclick="ordenarTabla('precio')">Precio</th><th onclick="ordenarTabla('costo')">Costo</th><th onclick="ordenarTabla('cantidad')">Cantidad</th><th onclick="ordenarTabla('utilidad')">Utilidad Unit.</th><th onclick="ordenarTabla('totalUtilidad')">Total Utilidad</th><th onclick="ordenarTabla('porcUtilidad')">% Utilidad</th></tr></thead><tbody id="tbodyVentas"></tbody></table>
+    </div>
+  </div>
 </div>
 
 <script>
-// --- Código completo anterior ---
-// Mejoras: gráficas ordenadas de mayor a menor y tabla ordenable por columnas.
-
-let datos=[],filtros={sucursal:[]},charts={},ordenActual={col:null,asc:true};
+let datos=[],filtros={sucursal:[]},charts={},ordenActual={columna:null,direccion:'asc'};
 const SHEET_ID='1eUY2A9N_nIahLkfjfvWssY5mH5Cv13PCEedJvUVVCxM';
 const SHEET_NAME='TablaXX';
+const SUCURSALES_ESPERADAS=['ATEQUIZA','ZAPOTILTIC','TAMAZULA RC','Jocotepec','TAMAZULA CH','TECALITLAN','SAN GABRIEL','TIZAPAN','PONCITLAN','SANTA CRUZ','HUESCALAPA','GOMEZ FARIAS','ZAPOTLAN','TEOCUITATLAN','JIQUILPAN CH','USMAJAC','COTIJA','ZAPOTILTIC REF','ATOYAC','TECALITLAN CH','COLOMO','TONAYA','MATRIZ','SAN ANDRES'];
 
-async function cargarDatos(){const err=document.getElementById('errorMsg'),load=document.getElementById('loading'),dash=document.getElementById('dashboard');
+function toggleFiltro(t){const c=document.getElementById(`content-${t}`),b=document.getElementById(`toggle-${t}`);c.classList.toggle('collapsed');b.classList.toggle('collapsed');}function abrirDropdown(t){document.getElementById('overlay').classList.add('active');document.getElementById(`dropdown${t.charAt(0).toUpperCase()+t.slice(1)}`).classList.add('active');}function cerrarDropdown(){document.getElementById('overlay').classList.remove('active');document.getElementById('dropdownEncontradas').classList.remove('active');document.getElementById('dropdownFaltantes').classList.remove('active');}function irAlSheet(){window.open(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`,'_blank');}async function cargarDatos(){const err=document.getElementById('errorMsg'),load=document.getElementById('loading'),dash=document.getElementById('dashboard');
   try{const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
-    const res=await fetch(url);
-    if(!res.ok)throw new Error('No se pudo acceder a Google Sheets');
-    const txt=await res.text();
-    const ini=txt.indexOf('{'),fin=txt.lastIndexOf('}');
-    if(ini<0||fin<0)throw new Error('Formato inválido');
+    const res=await fetch(url);if(!res.ok)throw new Error('No se pudo acceder a Google Sheets');
+    const txt=await res.text();const ini=txt.indexOf('{'),fin=txt.lastIndexOf('}');if(ini<0||fin<0)throw new Error('Formato inválido');
     const json=JSON.parse(txt.substring(ini,fin+1));
     if(!json.table||!json.table.rows)throw new Error('Sin datos');
-    datos=[];
-    json.table.rows.forEach(r=>{if(!r.c||!r.c[0])return;
-      datos.push({sucursal:r.c[0]?.v?.toString().trim()||'',
-        producto:r.c[1]?.v?.toString().trim()||'',
-        precio:+r.c[2]?.v||0,
-        costo:+r.c[3]?.v||0,
-        cantidad:+r.c[4]?.v||0,
-        utilidad:+r.c[5]?.v||0,
-        totalUtilidad:+r.c[8]?.v||0,
-        porcUtilidad:+r.c[9]?.v||0});});
+    datos=[];json.table.rows.forEach(r=>{if(!r.c||!r.c[0])return;
+      datos.push({sucursal:r.c[0]?.v?.toString().trim()||'',producto:r.c[1]?.v?.toString().trim()||'',precio:+r.c[2]?.v||0,costo:+r.c[3]?.v||0,cantidad:+r.c[4]?.v||0,utilidad:+r.c[5]?.v||0,totalUtilidad:+r.c[8]?.v||0,porcUtilidad:+r.c[9]?.v||0});});
     if(!datos.length)throw new Error('La hoja está vacía');
     err.style.display='none';load.style.display='none';dash.style.display='block';
-    actualizarDashboard();}catch(e){load.style.display='none';
-    err.textContent='⚠️ '+e.message;
-    err.style.display='block';}}function actualizarDashboard(){const f=datos;
+    actualizarDashboard();verificarSucursales();}catch(e){load.style.display='none';err.textContent='⚠️ '+e.message;err.style.display='block';}}function verificarSucursales(){const set=new Set(datos.map(d=>(d.sucursal||'').toUpperCase())),enc=[],fal=[];
+  SUCURSALES_ESPERADAS.forEach(s=>set.has(s.toUpperCase())?enc.push(s):fal.push(s));
+  document.getElementById('countEncontradas').textContent=enc.length;
+  document.getElementById('countFaltantes').textContent=fal.length;
+  document.getElementById('sucursalesEncontradas').innerHTML=enc.map(s=>`<div class="sucursal-item encontrada"><span class="status-icon">✓</span>${s}</div>`).join('');
+  document.getElementById('sucursalesFaltantes').innerHTML=fal.map(s=>`<div class="sucursal-item faltante"><span class="status-icon">✗</span>${s}</div>`).join('');}function crearFiltros(){const suc=['Todos',...new Set(datos.map(d=>d.sucursal).filter(Boolean))];crearBotonesFiltro('sucursal',suc);}function crearBotonesFiltro(tipo,opc){const c=document.getElementById(`filtros-${tipo}`);c.innerHTML='';opc.forEach(o=>{const b=document.createElement('button');b.className='filter-btn';b.textContent=o;const all=o==='Todos';const act=(all&&filtros[tipo].length===0)||filtros[tipo].includes(o);if(act)b.classList.add('active');b.onclick=()=>{if(all)filtros[tipo]=[];else{const i=filtros[tipo].indexOf(o);i>-1?filtros[tipo].splice(i,1):filtros[tipo].push(o);}actualizarDashboard();};c.appendChild(b);});}function aplicarFiltros(){const p=document.getElementById('buscaProducto').value.toLowerCase();
+  const precioMayorA=parseFloat(document.getElementById('precioMayorA').value)||0;
+  const precioMenorA=parseFloat(document.getElementById('precioMenorA').value)||Infinity;
+  return datos.filter(d=>{const sOk=filtros.sucursal.length===0||filtros.sucursal.includes(d.sucursal);
+    const pOk=!p||d.producto.toLowerCase().includes(p);
+    const precioOk=d.precio>=precioMayorA&&d.precio<=precioMenorA;
+    return sOk&&pOk&&precioOk;});}function ordenarTabla(col){if(ordenActual.columna===col){ordenActual.direccion=ordenActual.direccion==='asc'?'desc':'asc';}else{ordenActual.columna=col;ordenActual.direccion='asc';}actualizarTabla(aplicarFiltros());}function actualizarDashboard(){const f=aplicarFiltros();
+  crearFiltros();
+  actualizarKPIs(f);
   actualizarGraficos(f);
-  actualizarTabla(f);}function actualizarGraficos(f){const map={};
-  f.forEach(d=>{if(!map[d.sucursal])map[d.sucursal]={v:0,u:0};
-    map[d.sucursal].v+=d.precio*d.cantidad;
-    map[d.sucursal].u+=d.totalUtilidad;});
-  // Ordenar de mayor a menor
-  const arr=Object.entries(map).map(([s,v])=>({sucursal:s,ventas:v.v,utilidad:v.u}))
-    .sort((a,b)=>b.ventas-a.ventas);
-  const labels=arr.map(x=>x.sucursal);
-  const ventasData=arr.map(x=>x.ventas);
-  const utilData=arr.map(x=>x.utilidad);
-
-  if(charts.v)charts.v.destroy();
-  charts.v=new Chart(document.getElementById('chartVentas'),{type:'bar',
-    data:{labels:labels,datasets:[{label:'Ventas',data:ventasData,backgroundColor:'#3b82f6'}]},
-    options:{plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{x:{ticks:{color:'#94a3b8'}},y:{ticks:{color:'#94a3b8'}}}}});
-
-  if(charts.u)charts.u.destroy();
-  // Ordenar utilidad también
-  const arrU=[...arr].sort((a,b)=>b.utilidad-a.utilidad);
-  charts.u=new Chart(document.getElementById('chartUtilidad'),{type:'bar',
-    data:{labels:arrU.map(x=>x.sucursal),datasets:[{label:'Utilidad',data:arrU.map(x=>x.utilidad),backgroundColor:'#34d399'}]},
-    options:{plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{x:{ticks:{color:'#94a3b8'}},y:{ticks:{color:'#94a3b8'}}}}});}function actualizarTabla(f){const tbody=document.getElementById('tbodyVentas');
-  tbody.innerHTML=f.map(d=>`
-    <tr>
-      <td class="sucursal-name">${d.sucursal}</td>
-      <td>${d.producto}</td>
-      <td>$${d.precio}</td>
-      <td>$${d.costo}</td>
-      <td>${d.cantidad}</td>
-      <td>$${d.utilidad}</td>
-      <td>$${d.totalUtilidad}</td>
-      <td>${d.porcUtilidad.toFixed(1)}%</td>
-    </tr>
-  `).join('');
-  hacerSortable();}function hacerSortable(){document.querySelectorAll('th').forEach((th,i)=>{th.style.cursor='pointer';
-    th.onclick=()=>ordenarPorColumna(i);});}function ordenarPorColumna(i){const tbody=document.getElementById('tbodyVentas');
-  const filas=[...tbody.querySelectorAll('tr')];
-  const asc=ordenActual.col===i?!ordenActual.asc:true;
-  filas.sort((a,b)=>{const tA=a.children[i].innerText.replace(/[^0-9.-]+/g,'');
-    const tB=b.children[i].innerText.replace(/[^0-9.-]+/g,'');
-    const nA=parseFloat(tA)||tA.toLowerCase();
-    const nB=parseFloat(tB)||tB.toLowerCase();
-    if(nA<nB)return asc?-1:1;
-    if(nA>nB)return asc?1:-1;
-    return 0;});
-  ordenActual={col:i,asc:asc};
-  tbody.innerHTML='';
-  filas.forEach(f=>tbody.appendChild(f));}window.addEventListener('load',cargarDatos);
+  actualizarTabla(f);}function actualizarKPIs(f){const v=f.reduce((s,d)=>s+(d.precio*d.cantidad),0);
+  const u=f.reduce((s,d)=>s+d.totalUtilidad,0);
+  const c=f.reduce((s,d)=>s+d.cantidad,0);
+  const porc=v?((u/v)*100):0;
+  document.getElementById('kpis').innerHTML=`
+  <div class="kpi-card"><div>Total Ventas</div><div class="kpi-value">$${v.toLocaleString('es-MX')}</div></div>
+  <div class="kpi-card"><div>Total Utilidad</div><div class="kpi-value">$${u.toLocaleString('es-MX')}</div></div>
+  <div class="kpi-card"><div>% Utilidad</div><div class="kpi-value">${porc.toFixed(1)}%</div></div>
+  <div class="kpi-card"><div>Productos Vendidos</div><div class="kpi-value">${c}</div></div>`;}function actualizarGraficos(f){const map={};
+  f.forEach(d=>{if(!map[d.sucursal])map[d.sucursal]={v:0,u:0};map[d.sucursal].v+=d.precio*d.cantidad;map[d.sucursal].u+=d.totalUtilidad;});
+  let entries=Object.entries(map).sort((a,b)=>b[1].v-a[1].v);
+  const labs=entries.map(e=>e[0]),ventas=entries.map(e=>e[1].v);
+  let entriesUtil=Object.entries(map).sort((a,b)=>b[1].u-a[1].u);
+  const labsUtil=entriesUtil.map(e=>e[0]),util=entriesUtil.map(e=>e[1].u);
+  if(charts.v)charts.v.destroy();if(charts.u)charts.u.destroy();
+  charts.v=new Chart(document.getElementById('chartVentas'),{type:'bar',data:{labels:labs,datasets:[{label:'Ventas',data:ventas,backgroundColor:'#3b82f6'}]},options:{plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{x:{ticks:{color:'#94a3b8'}},y:{ticks:{color:'#94a3b8'}}}}});
+  charts.u=new Chart(document.getElementById('chartUtilidad'),{type:'bar',data:{labels:labsUtil,datasets:[{label:'Utilidad',data:util,backgroundColor:'#34d399'}]},options:{plugins:{legend:{labels:{color:'#e2e8f0'}}},scales:{x:{ticks:{color:'#94a3b8'}},y:{ticks:{color:'#94a3b8'}}}}});}function actualizarTabla(f){const ths=document.querySelectorAll('th');ths.forEach(th=>th.classList.remove('asc','desc'));
+  let sorted=f;if(ordenActual.columna){sorted=[...f].sort((a,b)=>{const aVal=a[ordenActual.columna],bVal=b[ordenActual.columna];if(typeof aVal==='string')return ordenActual.direccion==='asc'?aVal.localeCompare(bVal):bVal.localeCompare(aVal);return ordenActual.direccion==='asc'?aVal-bVal:bVal-aVal;});const idx=Array.from(ths).findIndex(th=>th.textContent.includes(['sucursal','producto','precio','costo','cantidad','utilidad','totalUtilidad','porcUtilidad'].find(c=>c===ordenActual.columna)||''));if(idx>=0)ths[idx].classList.add(ordenActual.direccion);}document.getElementById('tbodyVentas').innerHTML=sorted.map(d=>`
+  <tr><td class="sucursal-name">${d.sucursal}</td><td>${d.producto}</td><td>$${d.precio}</td><td>$${d.costo}</td><td>${d.cantidad}</td><td>$${d.utilidad}</td><td>$${d.totalUtilidad}</td><td>${d.porcUtilidad.toFixed(1)}%</td></tr>`).join('');}window.addEventListener('load',cargarDatos);
 </script>
 </body>
 </html>
